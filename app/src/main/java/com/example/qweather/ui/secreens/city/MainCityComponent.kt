@@ -1,8 +1,12 @@
 package com.example.qweather.ui.secreens.city
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +22,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,15 +31,12 @@ import com.example.qweather.ui.theme.MyAppTheme
 
 
 @Composable
-fun MainCityComponent(viewModel: WeatherViewModel= hiltViewModel(), onCitySelected: (String) -> Unit) {
+fun MainCityComponent(viewModel: WeatherViewModel= hiltViewModel()) {
 
     val cities by viewModel.mainCities.collectAsState()
+    val context: Context = LocalContext.current
 
-    Column(
-       modifier = Modifier
-            .fillMaxSize()
-            .padding(vertical = 16.dp)
-    ) {
+    Column(modifier = Modifier.fillMaxSize().padding(vertical = 16.dp)) {
 
         Text(
             text = "Qatar - Cities",
@@ -45,14 +47,19 @@ fun MainCityComponent(viewModel: WeatherViewModel= hiltViewModel(), onCitySelect
                 .padding(16.dp)
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
-        LazyColumn {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(vertical = 16.dp, horizontal = 16.dp),
+        ) {
             items(cities) { city ->
                 Column(
-                    Modifier.fillMaxWidth()
-                        .clickable { onCitySelected(city.name ?: "Unknown") }
-                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                    Modifier.clickable {
+                        Toast.makeText(context, "You a City: ${city.name} as Default City", Toast.LENGTH_SHORT).show()
+                        viewModel.onSetSelectedCity(city)
+                    }.fillMaxWidth().height(40.dp),
+                    verticalArrangement = Arrangement.Center
                 ) {
                     Text(
                         text = city.name ?: "Unknown",

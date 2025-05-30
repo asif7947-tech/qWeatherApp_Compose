@@ -40,6 +40,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -65,6 +67,15 @@ fun HomeScreen(navController: NavController,weatherViewModel: WeatherViewModel=h
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
     val showBottomSheet = remember { mutableStateOf(false) }
+    val selectedCity = remember { mutableStateOf("Test") }
+
+    val selectedCityState = weatherViewModel.selectedCityName.collectAsState()
+    val selectedCityIdState = weatherViewModel.selectedCityId.collectAsState()
+
+    LaunchedEffect(selectedCityState.value) {
+        selectedCity.value = selectedCityState.value
+        weatherViewModel.loadForecast(selectedCityIdState.value)
+    }
 
 
     val context = navController.context
@@ -91,11 +102,12 @@ fun HomeScreen(navController: NavController,weatherViewModel: WeatherViewModel=h
                                 },
                                 horizontalArrangement = Arrangement.Center
                             ) {
-                                Icon(Icons.Default.LocationOn, contentDescription = null)
+                                Icon(Icons.Default.LocationOn, contentDescription = null, tint = Color.White)
                                 Spacer(modifier = Modifier.width(10.dp))
-                                Text("Doha", modifier = Modifier.padding(start = 4.dp))
+                                Text(text = selectedCity.value, modifier = Modifier.padding(start = 4.dp),
+                                color = Color.White, fontWeight = FontWeight.Bold)
                                 Spacer(modifier = Modifier.width(10.dp))
-                                Icon(Icons.Default.ArrowDropDown, contentDescription = null)
+                                Icon(Icons.Default.ArrowDropDown, contentDescription = null, tint = Color.White)
                             }
                         }
                     },
@@ -105,12 +117,12 @@ fun HomeScreen(navController: NavController,weatherViewModel: WeatherViewModel=h
                                 drawerState.open()
                             }
                         }) {
-                            Icon(Icons.Default.Menu, contentDescription = "Menu")
+                            Icon(Icons.Default.Menu, contentDescription = "Menu", tint = Color.White)
                         }
                     },
                     actions = {
                         IconButton(onClick = { /* chat icon click */ }) {
-                            Icon(Icons.Default.MailOutline, contentDescription = "Chat")
+                            Icon(Icons.Default.MailOutline, contentDescription = "Chat" , tint = Color.White)
                         }
                     },
                 )
@@ -134,10 +146,6 @@ fun HomeScreen(navController: NavController,weatherViewModel: WeatherViewModel=h
     if (showBottomSheet.value) {
         CityBottomSheet(
             selectedTab = "Tab 1",
-            onTabChange = {},
-            onCityClick = {
-                Toast.makeText(context, "Clicked on City: $it", Toast.LENGTH_SHORT).show()
-            },
             onDismissRequest = { showBottomSheet.value = false }
         )
     }

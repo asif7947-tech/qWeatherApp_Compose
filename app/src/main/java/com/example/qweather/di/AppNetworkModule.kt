@@ -6,6 +6,8 @@ import com.example.qweather.data.repository.WeatherRepositoryImpl
 import com.example.qweather.domain.repository.WeatherRepository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +17,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
@@ -55,29 +58,29 @@ object AppNetworkModule {
     }
 
     @Provides
-    fun provideGson(): Gson {
-        return GsonBuilder()
-            .create()
+    fun provideMoshi(): Moshi {
+        return Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
     }
-
-
 
     @Singleton
     @Provides
-    fun provideConverterFactory(gson: Gson): GsonConverterFactory =
-        GsonConverterFactory.create(gson)
+    fun provideMoshiConverterFactory(moshi: Moshi): MoshiConverterFactory {
+        return MoshiConverterFactory.create(moshi)
+    }
 
     @Provides
     @Singleton
     fun provideRetrofit(
         @Named("BaseUrl") baseUrl: String,
         okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory
+        moshiConverterFactory: MoshiConverterFactory
     ): WeatherApiService{
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(okHttpClient)
-            .addConverterFactory(gsonConverterFactory).build().create(WeatherApiService::class.java)
+            .addConverterFactory(moshiConverterFactory).build().create(WeatherApiService::class.java)
     }
 
 //    @Provides

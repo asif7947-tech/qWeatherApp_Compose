@@ -12,5 +12,5 @@ interface WeatherApiService {
     suspend fun getCities(): WeatherApiResultResponse<CityResultResponse>
 
     @POST("current_weather/city")
-    suspend fun getForecast(@Query("city_id") cityId: Long): WeatherApiResultResponse<ForecastResult>
+    suspend fun getForecast(@Query("city_id") cityId: Int): WeatherApiResultResponse<ForecastResult>
 }

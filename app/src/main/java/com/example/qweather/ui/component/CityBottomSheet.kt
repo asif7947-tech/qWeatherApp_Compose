@@ -29,8 +29,6 @@ import com.example.qweather.ui.secreens.city.MainCityComponent
 @Composable
 fun CityBottomSheet(
     selectedTab: String,
-    onTabChange: (String) -> Unit,
-    onCityClick: (String) -> Unit,
     onDismissRequest: () -> Unit
 ) {
 
@@ -70,9 +68,7 @@ fun CityBottomSheet(
                         modifier = Modifier.fillMaxWidth().weight(1f)
                     ) { page ->
                         when (page) {
-                            0 -> MainCityComponent(
-                                onCitySelected = onCityClick
-                            )
+                            0 -> MainCityComponent()
                             1 -> Column(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -84,7 +80,9 @@ fun CityBottomSheet(
                                         TabItem(
                                             label = "City $index",
                                             isSelected = selectedTab == "City $index",
-                                            onClick = { onCityClick("City $index") }
+                                            onClick = {
+
+                                            }
                                         )
                                     }
                                 }

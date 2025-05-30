@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface WeatherRepository {
    suspend fun getCities(): Flow<Result<CitiesResponseModel>>
-    suspend fun getForecast(cityId: Long): Flow<Result<ForecastResult>>
+    suspend fun getForecast(cityId: Int): Flow<Result<ForecastResult>>
 }

@@ -33,7 +33,7 @@ class WeatherRepositoryImpl @Inject constructor(
     }
 
     //  Fetch forecast from API
-    override suspend fun getForecast(cityId: Long): Flow<Result<ForecastResult>> = flow {
+    override suspend fun getForecast(cityId: Int): Flow<Result<ForecastResult>> = flow {
         try {
             val apiResponse = weatherApiService.getForecast(cityId)
             Log.e("WeatherRepositoryImpl RESDDDT", Gson().toJson(apiResponse.Response.result))

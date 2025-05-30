@@ -12,12 +12,14 @@ class LocalStorageRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val weatherDao: WeatherDao
 ): LocalStorageRepository {
-    override suspend fun saveCurrentCity(cities: List<CityDataModel>) {
-        TODO("Not yet implemented")
+
+    override suspend fun saveCurrentCity(citie: CityDataModel) {
+        weatherDao.insertCurrentCity(citie.toCurrentCityEntity())
     }
 
-    override suspend fun getCurrentCity(): CityDataModel {
-        TODO("Not yet implemented")
+    override suspend fun getCurrentCity(): CityDataModel? {
+        val currentCityEntity = weatherDao.getSelectedCity()
+        return currentCityEntity?.toCityDataModel()
     }
 
     override suspend fun addToFavourite(city: CityDataModel) {
