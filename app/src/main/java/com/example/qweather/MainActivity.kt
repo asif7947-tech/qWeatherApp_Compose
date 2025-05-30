@@ -14,16 +14,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.example.qweather.navigation.AppRootHost
-import com.example.qweather.ui.secreens.splash.SplashScreen
+import com.example.qweather.ui.secreens.home.WeatherViewModel
 import com.example.qweather.ui.theme.MyAppTheme
 import com.example.qweather.ui.theme.QWeatherAppTheme
+import com.example.qweather.utils.LocaleUtils
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -41,28 +48,26 @@ class MainActivity : ComponentActivity() {
         // Install the Boot Splash Screen
         installSplashScreen()
         setContent {
-
+            val viewModel: WeatherViewModel = hiltViewModel()
+            val currentLanguage by viewModel.selectedLanguage.collectAsState()
+            
+            // Set the locale based on the saved language preference
+            LocaleUtils.setLocale(this, currentLanguage)
+            
             QWeatherAppTheme {
                 val navController = rememberNavController()
-                Scaffold(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(MyAppTheme.colorScheme.background),
-                ) {
-
+                val layoutDirection = LocaleUtils.getLayoutDirection(currentLanguage)
+                
+                CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
+                    Scaffold(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(MyAppTheme.colorScheme.background),
+                    ) {
                         AppRootHost(navController = navController)
-
+                    }
                 }
             }
-//            QWeatherAppTheme {
-//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                    Box(modifier = Modifier.padding(innerPadding)){
-//                        val navController = rememberNavController()
-//                        SplashScreen(navController = navController)
-//                    }
-//
-//                }
-//            }
         }
     }
 }

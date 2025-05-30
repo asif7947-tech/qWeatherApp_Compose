@@ -8,6 +8,7 @@ import com.example.qweather.data.response.forecast.ForecastResult
 import com.example.qweather.domain.dto.cities.CityDataModel
 import com.example.qweather.domain.repository.LocalStorageRepository
 import com.example.qweather.domain.repository.WeatherRepository
+import com.example.qweather.utils.LocaleUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import java.util.*
 
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
@@ -39,7 +41,7 @@ class WeatherViewModel @Inject constructor(
     private val _selectedCityName = MutableStateFlow("") // Default filter ID
     val selectedCityName: StateFlow<String> = _selectedCityName
 
-    private val _selectedLanguage = MutableStateFlow("en")
+    private val _selectedLanguage = MutableStateFlow(LocaleUtils.ENGLISH)
     val selectedLanguage: StateFlow<String> = _selectedLanguage
 
     // Forecast State
@@ -48,6 +50,7 @@ class WeatherViewModel @Inject constructor(
 
     init {
         loadCities()
+        loadSavedLanguage()
     }
 
     // Load cities
@@ -121,10 +124,19 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
+    private fun loadSavedLanguage() {
+        viewModelScope.launch {
+            localStorageRepository.getSelectedLanguage().collect { language ->
+                if (language.isNotEmpty()) {
+                    _selectedLanguage.value = language
+                }
+            }
+        }
+    }
 
-    fun onSetSelectedLanguage(language: String) {
-        _selectedLanguage.value = language
-        CoroutineScope(Dispatchers.IO).launch {
+    fun updateLanguage(language: String) {
+        viewModelScope.launch {
+            _selectedLanguage.value = language
             localStorageRepository.saveSelectedLanguage(language)
         }
     }

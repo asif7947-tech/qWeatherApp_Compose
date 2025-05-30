@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Q Weather</string>
+    <string name="app_name">QWeather</string>
     <string name="main_country">Qatar</string>
     <string name="world_wide">World Wide</string>
     <string name="city">City</string>
@@ -23,5 +24,8 @@
     <string name="about">About</string>
     <string name="app_version">Version</string>
     <string name="app_language">Switch to Arabic</string>
-
+    <string name="select_language">Select Language</string>
+    <string name="english">English</string>
+    <string name="arabic">Arabic</string>
+    <string name="cancel">Cancel</string>
 </resources>
