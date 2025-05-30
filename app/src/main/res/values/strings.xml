@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Q Weather</string>
+    <string name="main_country">Qatar</string>
+    <string name="world_wide">World Wide</string>
+    <string name="city">City</string>
+    <string name="temperature">Temperature</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind">Wind</string>
+    <string name="pressure">Pressure</string>
+    <string name="visibility">Visibility</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Search for a city</string>
+    <string name="search_no_results">No results found</string>
+    <string name="search_error">Error searching for city</string>
+    <string name="search_error_message">Please try again later</string>
+    <string name="search_error_title">Error</string>
+    <string name="search_error_button">Try again</string>
+</resources>

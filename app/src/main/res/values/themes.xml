@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.SplashScreen" parent="android:Theme.Material.Light.NoActionBar" >
+        <item name="android:statusBarColor">@color/appStatusBarColor</item>
+        <item name="windowSplashScreenBackground">@color/appStatusBarColor</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q" tools:ignore="NewApi">false</item>
+    </style>
+
+    <style name="Theme.QWeather" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="windowSplashScreenBackground">@color/appBackgroundColor</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/app_icon</item>
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        <item name="postSplashScreenTheme">@style/Theme.SplashAPI</item>
+        <item name="android:windowSplashscreenContent" tools:targetApi="o">@string/app_name</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="Theme.SplashAPI" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/appBackgroundColor</item>
+    </style>
+
+</resources>

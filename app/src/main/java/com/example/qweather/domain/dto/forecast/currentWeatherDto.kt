@@ -1,0 +1,31 @@
+package com.example.qweather.domain.dto.forecast
+
+data class CurrentWeatherDto(
+    val clouds: Int,
+    val feelsLike: Double,
+    val feelsLikeUnit: String,
+    val humidity: Int,
+    val humidityUnit: String,
+    val pressure: Int,
+    val pressureUnit: String,
+    val rain: Int,
+    val rainUnit: String,
+    val sunrise: Int,
+    val sunset: Int,
+    val temperature: Double,
+    val temperatureMax: Double,
+    val temperatureMin: Double,
+    val temperatureUnit: String,
+    val time: Int,
+    val uvIndex: String,
+    val visibility: Int,
+    val visibilityUnit: String,
+    val weatherIcon: String,
+    val weatherType: String,
+    val weatherTypeAr: String,
+    val windDirection: Int,
+    val windDirectionText: String,
+    val windDirectionTextAr: String,
+    val windPower: Double,
+    val windPowerUnit: String
+)
