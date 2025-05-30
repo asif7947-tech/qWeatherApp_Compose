@@ -39,6 +39,9 @@ class WeatherViewModel @Inject constructor(
     private val _selectedCityName = MutableStateFlow("") // Default filter ID
     val selectedCityName: StateFlow<String> = _selectedCityName
 
+    private val _selectedLanguage = MutableStateFlow("en")
+    val selectedLanguage: StateFlow<String> = _selectedLanguage
+
     // Forecast State
     private val _forecastState = MutableStateFlow<WeatherUiState<ForecastResult>>(WeatherUiState.Loading)
     val forecastState: StateFlow<WeatherUiState<ForecastResult>> = _forecastState.asStateFlow()
@@ -115,6 +118,14 @@ class WeatherViewModel @Inject constructor(
         _selectedCityName.value = city.name
         CoroutineScope(Dispatchers.IO).launch {
             localStorageRepository.saveCurrentCity(city)
+        }
+    }
+
+
+    fun onSetSelectedLanguage(language: String) {
+        _selectedLanguage.value = language
+        CoroutineScope(Dispatchers.IO).launch {
+            localStorageRepository.saveSelectedLanguage(language)
         }
     }
 }

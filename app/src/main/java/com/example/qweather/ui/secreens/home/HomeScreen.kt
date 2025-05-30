@@ -23,6 +23,10 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.rounded.Place
+import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalNavigationDrawer
@@ -48,11 +52,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.qweather.R
 import com.example.qweather.ui.component.CityBottomSheet
+import com.example.qweather.ui.secreens.home.component.DrawerItem
 import com.example.qweather.ui.secreens.home.component.SunriseSunsetChart
 import com.example.qweather.ui.secreens.home.component.WeatherInfoCard
 import com.example.qweather.ui.secreens.home.component.WeatherMetricsRow
@@ -152,13 +158,20 @@ fun HomeScreen(navController: NavController,weatherViewModel: WeatherViewModel=h
 }
 
 @Composable
-fun DrawerContent() {
+fun DrawerContent( viewModel: WeatherViewModel = hiltViewModel()) {
+    val context = LocalContext.current
+    val currentLocale = remember { mutableStateOf("en") }
+
+    val selectedLanguageState = viewModel.selectedLanguage.collectAsState()
+
+
+    LaunchedEffect(selectedLanguageState.value) {
+        currentLocale.value = selectedLanguageState.value
+    }
+
     Column(modifier = Modifier.fillMaxSize().padding(top = 30.dp, end = 80.dp).background(Color.White)) {
-       Column(
-            modifier = Modifier.padding(top = 16.dp, start = 20.dp),
-        ) {
            Column(
-               modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+               modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 24.dp),
                horizontalAlignment = Alignment.CenterHorizontally
            ) {
                // Circular Icon with Border
@@ -180,13 +193,51 @@ fun DrawerContent() {
                Spacer(modifier = Modifier.height(12.dp))
 
                Text(
-                   text = "MyApp",
+                   text = context.getString(R.string.app_name),
                    style = MaterialTheme.typography.titleLarge.copy(
                        fontWeight = FontWeight.Bold
                    )
                )
            }
-       }
+        Divider(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // Drawer Options
+        DrawerItem(
+            title = context.getString(R.string.share_app),
+            leadingIcon = Icons.Default.Share,
+            onClick = {
+            }
+        )
+
+        DrawerItem(
+            title = context.getString(R.string.rate_app),
+            leadingIcon = Icons.Default.Star,
+            onClick = {
+
+            }
+        )
+
+        // Language Toggle
+        Spacer(modifier = Modifier.height(16.dp))
+        Divider(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
+        )
+
+        DrawerItem(
+            title = if (currentLocale.value == "en") "Switch to Arabic" else "التبديل إلى الإنجليزية",
+            leadingIcon = Icons.Default.LocationOn,
+            onClick = {
+                val newLang = if (currentLocale.value == "en") "ar" else "en"
+                viewModel.onSetSelectedLanguage(newLang)
+            }
+        )
+
         }
         // Add more as needed
     }

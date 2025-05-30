@@ -17,4 +17,11 @@
     <string name="search_error_message">Please try again later</string>
     <string name="search_error_title">Error</string>
     <string name="search_error_button">Try again</string>
+    <string name="settings">Settings</string>
+    <string name="rate_app">Rate App</string>
+    <string name="share_app">Share App</string>
+    <string name="about">About</string>
+    <string name="app_version">Version</string>
+    <string name="app_language">Switch to Arabic</string>
+
 </resources>

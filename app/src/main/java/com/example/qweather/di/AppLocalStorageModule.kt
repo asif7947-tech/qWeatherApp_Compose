@@ -48,8 +48,9 @@ object AppLocalStorageModule {
     @Singleton
     fun provideLocalStorageRepository(
         @ApplicationContext context: Context,
-        weatherDao: WeatherDao
+        weatherDao: WeatherDao,
+        dataStoreManager: DataStoreManager
     ): LocalStorageRepository {
-        return LocalStorageRepositoryImpl(context, weatherDao)
+        return LocalStorageRepositoryImpl(context, weatherDao, dataStoreManager)
     }
 }

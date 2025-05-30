@@ -1,16 +1,19 @@
 package com.example.qweather.data.repository
 
 import android.content.Context
+import com.example.qweather.data.storage.dataStore.DataStoreManager
 import com.example.qweather.data.storage.room.dao.WeatherDao
 import com.example.qweather.data.storage.room.entities.FavouriteCitiesEntity
 import com.example.qweather.domain.dto.cities.CityDataModel
 import com.example.qweather.domain.repository.LocalStorageRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class LocalStorageRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val weatherDao: WeatherDao
+    private val weatherDao: WeatherDao,
+    private val dataStoreManager: DataStoreManager
 ): LocalStorageRepository {
 
     override suspend fun saveCurrentCity(citie: CityDataModel) {
@@ -32,6 +35,14 @@ class LocalStorageRepositoryImpl @Inject constructor(
 
     override suspend fun getFavouriteCities(): List<FavouriteCitiesEntity> {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun saveSelectedLanguage(language: String) {
+        dataStoreManager.saveSelectedLanguage(language)
+    }
+
+    override suspend fun getSelectedLanguage(): Flow<String> {
+        return dataStoreManager.getSelectedLanguage()
     }
 
 

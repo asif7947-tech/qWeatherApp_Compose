@@ -1,5 +1,6 @@
 package com.example.qweather.ui.secreens.city
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -30,11 +31,13 @@ import com.example.qweather.ui.secreens.home.WeatherViewModel
 import com.example.qweather.ui.theme.MyAppTheme
 
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun MainCityComponent(viewModel: WeatherViewModel= hiltViewModel()) {
 
     val cities by viewModel.mainCities.collectAsState()
     val context: Context = LocalContext.current
+    val selectedCityIdState = viewModel.selectedCityId.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize().padding(vertical = 16.dp)) {
 
@@ -58,7 +61,9 @@ fun MainCityComponent(viewModel: WeatherViewModel= hiltViewModel()) {
                     Modifier.clickable {
                         Toast.makeText(context, "You a City: ${city.name} as Default City", Toast.LENGTH_SHORT).show()
                         viewModel.onSetSelectedCity(city)
-                    }.fillMaxWidth().height(40.dp),
+                    }.fillMaxWidth().height(40.dp).background(
+                        if (city.id == selectedCityIdState.value) Color(0xFFDC594F) else Color.White
+                    ),
                     verticalArrangement = Arrangement.Center
                 ) {
                     Text(
