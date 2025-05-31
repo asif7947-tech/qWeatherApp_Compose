@@ -24,8 +24,15 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
             isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        release {
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -50,7 +57,6 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-
     // compose activity
     implementation(libs.androidx.activity.compose)
     // Compose  UI
@@ -68,7 +74,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     // Application Lifecycle process
     implementation(libs.androidx.lifecycle.process)
-
     // Kotlin Serialization
     implementation(libs.kotlinx.serialization.json)
     // Compose Constraint Layout
@@ -77,7 +82,6 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     // Compose View Model
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-
     // Preferences DataStore
     implementation(libs.androidx.datastore.preferences)
 
@@ -112,10 +116,8 @@ dependencies {
     implementation(libs.moshi.kotlin)
     implementation(libs.moshi.converter)
     ksp(libs.moshi.codegen)
-
-
-
-
+    // Location
+    implementation(libs.google.play.services.location)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

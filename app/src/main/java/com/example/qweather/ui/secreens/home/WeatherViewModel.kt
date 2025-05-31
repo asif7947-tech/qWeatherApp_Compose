@@ -3,9 +3,9 @@ package com.example.qweather.ui.secreens.home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.qweather.data.response.city.CityResultResponse
-import com.example.qweather.data.response.forecast.ForecastResult
-import com.example.qweather.domain.dto.cities.CityDataModel
+import com.example.qweather.data.storage.room.entities.FavouriteCitiesEntity
+import com.example.qweather.domain.dto.cities.CityDataDto
+import com.example.qweather.domain.dto.forecast.ForecastResultDto
 import com.example.qweather.domain.repository.LocalStorageRepository
 import com.example.qweather.domain.repository.WeatherRepository
 import com.example.qweather.utils.LocaleUtils
@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import java.util.*
 
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
@@ -26,27 +25,32 @@ class WeatherViewModel @Inject constructor(
     private val localStorageRepository: LocalStorageRepository
 ) : ViewModel() {
 
-    private val _myMainCities = MutableStateFlow<List<CityDataModel>>(emptyList())
-    val mainCities: StateFlow<List<CityDataModel>> = _myMainCities
+    // Main Cities State
+    private val _myMainCities = MutableStateFlow<List<CityDataDto>>(emptyList())
+    val mainCities: StateFlow<List<CityDataDto>> = _myMainCities
 
-    private val _mWorldWideCities = MutableStateFlow<List<CityDataModel>>(emptyList())
-    val worldWideCities: StateFlow<List<CityDataModel>> = _mWorldWideCities
-    // Cities State
-    private val _citiesState = MutableStateFlow<WeatherUiState<CityResultResponse>>(WeatherUiState.Loading)
-    val citiesState: StateFlow<WeatherUiState<CityResultResponse>> = _citiesState.asStateFlow()
-
+    // World Wide Cities State
+    private val _mWorldWideCities = MutableStateFlow<List<CityDataDto>>(emptyList())
+    val worldWideCities: StateFlow<List<CityDataDto>> = _mWorldWideCities
+    // Current City ID State
     private val _selectedCityId = MutableStateFlow(0) // Default filter ID
     val selectedCityId: StateFlow<Int> = _selectedCityId
 
+    // Current City Name State
     private val _selectedCityName = MutableStateFlow("") // Default filter ID
     val selectedCityName: StateFlow<String> = _selectedCityName
 
+    // Language State
     private val _selectedLanguage = MutableStateFlow(LocaleUtils.ENGLISH)
     val selectedLanguage: StateFlow<String> = _selectedLanguage
 
     // Forecast State
-    private val _forecastState = MutableStateFlow<WeatherUiState<ForecastResult>>(WeatherUiState.Loading)
-    val forecastState: StateFlow<WeatherUiState<ForecastResult>> = _forecastState.asStateFlow()
+    private val _forecastState = MutableStateFlow<WeatherUiState<ForecastResultDto>>(WeatherUiState.Loading)
+    val forecastState: StateFlow<WeatherUiState<ForecastResultDto>> = _forecastState.asStateFlow()
+
+    // Favourite Cities State
+    private val _favouriteCities = MutableStateFlow<List<FavouriteCitiesEntity>>(emptyList())
+    val favouriteCities: StateFlow<List<FavouriteCitiesEntity>> = _favouriteCities
 
     init {
         loadCities()
@@ -56,10 +60,8 @@ class WeatherViewModel @Inject constructor(
     // Load cities
     private fun loadCities() {
         viewModelScope.launch {
-            _citiesState.value = WeatherUiState.Loading
             weatherRepository.getCities()
                 .catch { e ->
-                    _citiesState.value = WeatherUiState.Error(e.message ?: "Unknown Error")
                     Log.e("WeatherViewModel", e.message ?: "Unknown Error")
                 }
                 .collect { result ->
@@ -69,10 +71,8 @@ class WeatherViewModel @Inject constructor(
                         _mWorldWideCities.value = it.worldCities
                         Log.e("WeatherViewModel success: ", it.cities.toString())
                         fetchSelectedCity()
-
                         }
                         .onFailure {
-                            _citiesState.value = WeatherUiState.Error(it.message ?: "Failed to load cities")
                             Log.e("WeatherViewModel Error: ", it.message ?: "Failed to load cities")
                         }
                 }
@@ -116,7 +116,7 @@ class WeatherViewModel @Inject constructor(
     }
 
     // Set selected city
-    fun onSetSelectedCity(city: CityDataModel) {
+    fun onSetSelectedCity(city: CityDataDto) {
         _selectedCityId.value = city.id
         _selectedCityName.value = city.name
         CoroutineScope(Dispatchers.IO).launch {
@@ -130,6 +130,26 @@ class WeatherViewModel @Inject constructor(
                 if (language.isNotEmpty()) {
                     _selectedLanguage.value = language
                 }
+            }
+        }
+    }
+
+    fun onAddToFavourite(city: CityDataDto) {
+        viewModelScope.launch {
+            localStorageRepository.addToFavourite(city)
+        }
+    }
+
+    fun onRemoveFromFavourite(city_id: Int) {
+        viewModelScope.launch {
+            localStorageRepository.removeFromFavourite(city_id)
+        }
+    }
+
+    fun getFavouriteCities() {
+        viewModelScope.launch {
+            localStorageRepository.getFavouriteCities().collect { cities ->
+                _favouriteCities.value = cities
             }
         }
     }

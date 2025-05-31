@@ -16,7 +16,6 @@ data class DayDetailDto(
     val visibilityUnit: String,
     val warningText: String,
     val warningTextAr: String,
-    val weatherIcon: String,
     val weatherType: String,
     val weatherTypeAr: String,
     val windDirection: Int,

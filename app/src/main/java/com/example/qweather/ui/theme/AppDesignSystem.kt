@@ -29,19 +29,17 @@ data class AppColorScheme(
     val tabIndicatorBgColor: Color,
     val appStatusBarColor: Color,
     val appBackground: Color,
-    val subscription_button_color: Color,
-    val subscription_button_text_color: Color,
-    val app_text_color: Color,
-    val app_status_bar_color: Color,
-    val app_button_color: Color,
-    val app_background_color: Color,
-    val appBackgroundNavColor: Color
+    val appTextColorWhite: Color,
+    val black: Color,
+    val appButtonColor: Color,
+    val onSurfaceVariant: Color,
 )
 
 // typography
 
 data class AppTypography(
     val appMainHeading: TextStyle,
+    val headlineLarge: TextStyle,
     val appSubHeading: TextStyle,
     val titleNormal: TextStyle,
     val titleLarge: TextStyle,
@@ -54,22 +52,14 @@ data class AppTypography(
     val heading: TextStyle,
     val label: TextStyle,
     val labelLarge: TextStyle,
+    val bodyLarge: TextStyle,
+    val bodyMedium: TextStyle,
     val labelSmall: TextStyle,
     val tabHeading: TextStyle,
-    val navBarTitle: TextStyle,
     val tabTitle: TextStyle,
     val pacificRegular: TextStyle,
     val pageMainHeading: TextStyle,
-    val filterChipTitle: TextStyle,
-    val pacificLarge: TextStyle,
-    val appButton_text: TextStyle,
-    val subcription_option_title_text: TextStyle,
-    val soundCardTitle: TextStyle,
-    val soundTimerText: TextStyle,
-    val soundDetailTimerText: TextStyle,
-    val playingCardHeading: TextStyle,
-    val playingCardSubHeading: TextStyle,
-    val playingCardTitle: TextStyle
+    val appButtonTextRegular: TextStyle,
 )
 
 //  shapes
@@ -99,15 +89,6 @@ data class AppDimensions(
     val cornerRadius: AppSize,
 )
 
-//  theme
-data class AppTheme(
-    val colors: AppColorScheme,
-    val typography: AppTypography,
-    val shapes: AppShape,
-    val dimensions: AppDimensions,
-    val sizes: AppSize
-)
-
 //  app theme
 val LocalAppColorScheme = staticCompositionLocalOf {
     AppColorScheme(
@@ -129,14 +110,11 @@ val LocalAppColorScheme = staticCompositionLocalOf {
         tabContentColor = Color.Unspecified,
         tabIndicatorBgColor = Color.Unspecified,
         appStatusBarColor = Color.Unspecified,
-        subscription_button_color = Color.Unspecified,
-        subscription_button_text_color = Color.Unspecified,
-        app_text_color = Color.Unspecified,
-        app_status_bar_color = Color.Unspecified,
-        app_button_color = Color.Unspecified,
-        app_background_color = Color.Unspecified,
+        appTextColorWhite = Color.Unspecified,
+        appButtonColor = Color.Unspecified,
         appBackground = Color.Unspecified,
-        appBackgroundNavColor = Color.Unspecified
+        black = Color.Unspecified,
+        onSurfaceVariant = Color.Unspecified,
     )
 }
 
@@ -154,7 +132,6 @@ val LocalAppTypography = staticCompositionLocalOf {
         heading = TextStyle.Default,
         label = TextStyle.Default,
         tabHeading = TextStyle.Default,
-        navBarTitle = TextStyle.Default,
         tabTitle = TextStyle.Default,
         appMainHeading = TextStyle.Default,
         appSubHeading = TextStyle.Default,
@@ -162,16 +139,10 @@ val LocalAppTypography = staticCompositionLocalOf {
         labelLarge = TextStyle.Default,
         labelSmall = TextStyle.Default,
         pageMainHeading = TextStyle.Default,
-        filterChipTitle = TextStyle.Default,
-        pacificLarge = TextStyle.Default,
-        appButton_text = TextStyle.Default,
-        subcription_option_title_text = TextStyle.Default,
-        soundCardTitle = TextStyle.Default,
-        soundTimerText = TextStyle.Default,
-        soundDetailTimerText = TextStyle.Default,
-        playingCardHeading = TextStyle.Default,
-        playingCardSubHeading = TextStyle.Default,
-        playingCardTitle = TextStyle.Default
+        bodyLarge = TextStyle.Default,
+        appButtonTextRegular = TextStyle.Default,
+        bodyMedium = TextStyle.Default,
+        headlineLarge = TextStyle.Default,
     )
 }
 

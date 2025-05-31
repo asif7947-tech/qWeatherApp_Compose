@@ -34,9 +34,9 @@ data class ForecastResult(
             cityId = cityId,
             country = country,
             countryName = countryName,
-            currentWeather = currentWeather,
-            dailyWeather = dailyWeather,
-            hourlyData = hourlyData,
+            currentWeather = currentWeather.toCurrentWeatherDto(),
+            dailyWeather = dailyWeather.map { it.toDailyWeatherDto() },
+            hourlyData = hourlyData.map { it.toHourlyDataDto() },
             latitude = latitude,
             longitude = longitude,
         )

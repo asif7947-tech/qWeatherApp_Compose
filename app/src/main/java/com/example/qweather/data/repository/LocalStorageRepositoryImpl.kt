@@ -4,7 +4,7 @@ import android.content.Context
 import com.example.qweather.data.storage.dataStore.DataStoreManager
 import com.example.qweather.data.storage.room.dao.WeatherDao
 import com.example.qweather.data.storage.room.entities.FavouriteCitiesEntity
-import com.example.qweather.domain.dto.cities.CityDataModel
+import com.example.qweather.domain.dto.cities.CityDataDto
 import com.example.qweather.domain.repository.LocalStorageRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
@@ -16,25 +16,27 @@ class LocalStorageRepositoryImpl @Inject constructor(
     private val dataStoreManager: DataStoreManager
 ): LocalStorageRepository {
 
-    override suspend fun saveCurrentCity(citie: CityDataModel) {
+    override suspend fun saveCurrentCity(citie: CityDataDto) {
         weatherDao.insertCurrentCity(citie.toCurrentCityEntity())
     }
 
-    override suspend fun getCurrentCity(): CityDataModel? {
+    override suspend fun getCurrentCity(): CityDataDto? {
         val currentCityEntity = weatherDao.getSelectedCity()
         return currentCityEntity?.toCityDataModel()
     }
 
-    override suspend fun addToFavourite(city: CityDataModel) {
-        TODO("Not yet implemented")
+    override suspend fun addToFavourite(city: CityDataDto) {
+        weatherDao.insertFavouriteCity(
+            city.toFavouriteCitiesEntity()
+        )
     }
 
-    override suspend fun removeFromFavourite(city: FavouriteCitiesEntity) {
-        TODO("Not yet implemented")
+    override suspend fun removeFromFavourite(cityId: Int) {
+        weatherDao.deleteCity(cityId)
     }
 
-    override suspend fun getFavouriteCities(): List<FavouriteCitiesEntity> {
-        TODO("Not yet implemented")
+    override suspend fun getFavouriteCities(): Flow<List<FavouriteCitiesEntity>> {
+        return weatherDao.getFavoriteCities()
     }
 
     override suspend fun saveSelectedLanguage(language: String) {
@@ -44,6 +46,5 @@ class LocalStorageRepositoryImpl @Inject constructor(
     override suspend fun getSelectedLanguage(): Flow<String> {
         return dataStoreManager.getSelectedLanguage()
     }
-
 
 }

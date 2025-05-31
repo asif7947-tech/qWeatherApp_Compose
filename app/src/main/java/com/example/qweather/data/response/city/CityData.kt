@@ -2,7 +2,7 @@ package com.example.qweather.data.response.city
 
 
 import androidx.annotation.Keep
-import com.example.qweather.domain.dto.cities.CityDataModel
+import com.example.qweather.domain.dto.cities.CityDataDto
 import com.squareup.moshi.Json
 
 @Keep
@@ -24,8 +24,8 @@ data class CityData(
      @Json(name = "country_name_ar")
     val countryNameAr: String,
 ){
-    fun toCityDataModel(): CityDataModel {
-        return CityDataModel(
+    fun toCityDataModel(): CityDataDto {
+        return CityDataDto(
             id = cityId,
             country = country,
             countryName = countryName,

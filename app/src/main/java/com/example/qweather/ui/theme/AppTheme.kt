@@ -11,14 +11,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.qweather.ui.theme.AppColorScheme
-import com.example.qweather.ui.theme.AppShape
-import com.example.qweather.ui.theme.AppSize
-import com.example.qweather.ui.theme.AppTypography
-import com.example.qweather.ui.theme.LocalAppColorScheme
-import com.example.qweather.ui.theme.LocalAppShape
-import com.example.qweather.ui.theme.LocalAppSize
-import com.example.qweather.ui.theme.LocalAppTypography
 
 // set dark color scheme
 val darkColorScheme = AppColorScheme(
@@ -41,13 +33,10 @@ val darkColorScheme = AppColorScheme(
     tabIndicatorBgColor = tabIndicatorBgColorDark,
     appStatusBarColor = Color.Black,
     appBackground = appBackground,
-    subscription_button_color = subscription_button_color,
-    subscription_button_text_color = subscription_button_text_color,
-    app_text_color = app_text_color,
-    app_status_bar_color = app_status_bar_color,
-    app_button_color = app_button_color,
-    app_background_color = app_background_color,
-    appBackgroundNavColor = app_background_color_2
+    appTextColorWhite = app_text_color,
+    appButtonColor = app_button_color,
+    black = black,
+    onSurfaceVariant = Color.White
 
 )
 
@@ -72,14 +61,11 @@ val lightColorScheme = AppColorScheme(
     tabContentColor = tabContentColor,
     tabIndicatorBgColor = tabIndicatorBgColorLight,
     appStatusBarColor = appStatusBarColor,
-    subscription_button_color = subscription_button_color,
-    subscription_button_text_color = subscription_button_text_color,
-    app_text_color = app_text_color,
-    app_status_bar_color = app_status_bar_color,
-    app_button_color = app_button_color,
-    app_background_color = app_background_color,
+    appTextColorWhite = app_text_color,
+    appButtonColor = app_button_color,
+    black = app_button_color,
     appBackground = appBackground,
-    appBackgroundNavColor = app_background_color_2
+    onSurfaceVariant = onSurfaceVariant
 )
 
 
@@ -172,13 +158,6 @@ val typography = AppTypography(
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
-    navBarTitle = TextStyle(
-        fontFamily = InterFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    ),
     tabTitle = TextStyle(
         fontFamily = InterFontFamily,
         fontWeight = FontWeight.Medium,
@@ -196,11 +175,6 @@ val typography = AppTypography(
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
     ),
-    soundCardTitle = TextStyle(
-        fontFamily = InterFontFamily,
-        fontWeight = FontWeight.Bold,
-        fontSize = 12.sp,
-    ),
     pageMainHeading = TextStyle(
         fontFamily = InterFontFamily,
         fontWeight = FontWeight.Bold,
@@ -213,57 +187,35 @@ val typography = AppTypography(
         lineHeight = 24.sp,
         letterSpacing = 0.sp
     ),
-    filterChipTitle = TextStyle(
-        fontFamily = InterFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 14.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
-    ),
-    pacificLarge = TextStyle(
-        fontFamily = pacificoFontFamily,
-        fontWeight = FontWeight.Normal,
-        fontSize = 36.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
-    ),
-    appButton_text = TextStyle(
+    appButtonTextRegular = TextStyle(
         fontFamily = InterFontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
-    subcription_option_title_text = TextStyle(
-        fontFamily = InterFontFamily,
-        fontWeight = FontWeight.Bold,
-        fontSize = 15.sp,
-    ),
-    soundTimerText = TextStyle(
+    bodyLarge = TextStyle(
         fontFamily = InterFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 16.sp
+        fontSize = 18.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp
     ),
-    soundDetailTimerText = TextStyle(
+    bodyMedium = TextStyle(
         fontFamily = InterFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 40.sp
+        fontSize = 14.sp,
+        lineHeight = 20.sp,
+        letterSpacing = 0.5.sp
     ),
-    playingCardHeading = TextStyle(
+    headlineLarge = TextStyle(
         fontFamily = InterFontFamily,
-        fontWeight = FontWeight.Normal,
-        fontSize = 10.sp,
+        fontWeight = FontWeight.Medium,
+        fontSize = 22.sp,
+        lineHeight = 28.sp,
+        letterSpacing = 0.5.sp
     ),
-    playingCardSubHeading = TextStyle(
-        fontFamily = InterFontFamily,
-        fontWeight = FontWeight.Bold,
-        fontSize = 12.sp,
-    ),
-    playingCardTitle = TextStyle(
-        fontFamily = InterFontFamily,
-        fontWeight = FontWeight.Bold,
-        fontSize = 16.sp,
-    ),
+
 )
 
 // set app shapes

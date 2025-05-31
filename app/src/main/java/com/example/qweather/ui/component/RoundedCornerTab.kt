@@ -32,7 +32,7 @@ sealed class HomeTabItem(
     val title: String,
 ) {
     data object firstTab : HomeTabItem(
-        title = "WorldWide",
+        title = "Qatar",
     )
     data object secondTab : HomeTabItem(
         title = "WorldWide",

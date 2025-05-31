@@ -1,13 +1,10 @@
 package com.example.qweather.data.response.forecast
 
-
-import kotlinx.serialization.Serializable
 import androidx.annotation.Keep
 import com.example.qweather.domain.dto.forecast.CurrentWeatherDto
 import com.squareup.moshi.Json
 
 @Keep
-@Serializable
 data class CurrentWeather(
      @Json(name = "clouds")
     val clouds: Int,
@@ -40,7 +37,7 @@ data class CurrentWeather(
      @Json(name = "temperature_unit")
     val temperatureUnit: String,
      @Json(name = "time")
-    val time: Int,
+    val time: Long,
      @Json(name = "uv_index")
     val uvIndex: String,
      @Json(name = "visibility")

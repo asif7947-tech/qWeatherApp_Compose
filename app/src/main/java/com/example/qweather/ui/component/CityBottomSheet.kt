@@ -1,5 +1,6 @@
 package com.example.qweather.ui.component
 
+import WorldWideCityComponent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -69,24 +70,7 @@ fun CityBottomSheet(
                     ) { page ->
                         when (page) {
                             0 -> MainCityComponent()
-                            1 -> Column(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                                verticalArrangement = Arrangement.Center
-                            ) {
-                                LazyColumn {
-                                    items(10) { index ->
-                                        TabItem(
-                                            label = "City $index",
-                                            isSelected = selectedTab == "City $index",
-                                            onClick = {
-
-                                            }
-                                        )
-                                    }
-                                }
-                            }
+                            1 -> WorldWideCityComponent()
                         }
                     }
                 }

@@ -16,11 +16,14 @@ interface WeatherDao {
     suspend fun insertCurrentCity(currentCityEntity: CurrentCityEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSound(sound: FavouriteCitiesEntity)
+    suspend fun insertFavouriteCity(sound: FavouriteCitiesEntity)
 
     @Query("SELECT * FROM ${Constants.SELECTED_CITY} LIMIT 1")
     suspend fun getSelectedCity(): CurrentCityEntity?
 
     @Query("SELECT * FROM ${Constants.FAVOURITE_CITIES_TABLE}")
-    fun getFavoriteSounds(): Flow<List<FavouriteCitiesEntity>>
+    fun getFavoriteCities(): Flow<List<FavouriteCitiesEntity>>
+
+    @Query("DELETE FROM ${Constants.FAVOURITE_CITIES_TABLE} WHERE cityId = :id")
+    suspend fun deleteCity(id: Int)
 }

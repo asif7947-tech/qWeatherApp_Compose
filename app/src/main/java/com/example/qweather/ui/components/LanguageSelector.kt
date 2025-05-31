@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.qweather.R
+import com.example.qweather.ui.theme.MyAppTheme
 import com.example.qweather.utils.LocaleUtils
 
 @Composable
@@ -34,7 +35,7 @@ fun LanguageSelector(
             Icon(
                 imageVector = Icons.Default.AccountBox,
                 contentDescription = "Language",
-                tint = MaterialTheme.colorScheme.onSurface
+                tint = MyAppTheme.colorScheme.onSurface
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
@@ -42,7 +43,7 @@ fun LanguageSelector(
                     id = if (currentLanguage == LocaleUtils.ARABIC) R.string.arabic
                     else R.string.english
                 ),
-                style = MaterialTheme.typography.bodyLarge
+                style = MyAppTheme.typography.bodyLarge
             )
         }
     }
@@ -103,7 +104,7 @@ private fun LanguageOption(
                 id = if (language == LocaleUtils.ARABIC) R.string.arabic
                 else R.string.english
             ),
-            style = MaterialTheme.typography.bodyLarge
+            style = MyAppTheme.typography.bodyLarge
         )
     }
 } 

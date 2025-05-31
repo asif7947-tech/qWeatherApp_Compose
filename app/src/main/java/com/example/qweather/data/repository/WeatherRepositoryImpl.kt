@@ -2,8 +2,8 @@ package com.example.qweather.data.repository
 
 import android.util.Log
 import com.example.qweather.data.network.WeatherApiService
-import com.example.qweather.data.response.forecast.ForecastResult
-import com.example.qweather.domain.dto.cities.CitiesResponseModel
+import com.example.qweather.domain.dto.cities.CitiesResponseDto
+import com.example.qweather.domain.dto.forecast.ForecastResultDto
 import com.example.qweather.domain.repository.WeatherRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +15,7 @@ class WeatherRepositoryImpl @Inject constructor(
 ) : WeatherRepository {
 
     //  Fetch cities from API
-    override suspend fun getCities(): Flow<Result<CitiesResponseModel>> = flow {
+    override suspend fun getCities(): Flow<Result<CitiesResponseDto>> = flow {
         try {
             val apiResponse = weatherApiService.getCities()
             if (apiResponse.Response.status == true) {
@@ -33,13 +33,13 @@ class WeatherRepositoryImpl @Inject constructor(
     }
 
     //  Fetch forecast from API
-    override suspend fun getForecast(cityId: Int): Flow<Result<ForecastResult>> = flow {
+    override suspend fun getForecast(cityId: Int): Flow<Result<ForecastResultDto>> = flow {
         try {
             val apiResponse = weatherApiService.getForecast(cityId)
             Log.e("WeatherRepositoryImpl RESDDDT", Gson().toJson(apiResponse.Response.result))
 
             if (apiResponse.Response.status == true) {
-                emit(Result.success(apiResponse.Response.result))
+                emit(Result.success(apiResponse.Response.result.toForecastResultDto()))
             } else {
                 emit(Result.failure(Exception("API returned false status")))
             }

@@ -1,8 +1,10 @@
 package com.example.qweather.domain.dto.cities
 
 import com.example.qweather.data.storage.room.entities.CurrentCityEntity
+import com.example.qweather.data.storage.room.entities.FavouriteCitiesEntity
 
-data class CityDataModel(
+
+data class CityDataDto(
     val id: Int,
     val name: String,
     val cityNameAr: String,
@@ -16,6 +18,19 @@ data class CityDataModel(
         return CurrentCityEntity(
             id=id,
             name=name,
+            country=country,
+            countryNameAr = countryNameAr,
+            cityNameAr = cityNameAr,
+            countryName = countryName,
+            latitude = latitude,
+            longitude = longitude
+        )
+    }
+
+    fun toFavouriteCitiesEntity(): FavouriteCitiesEntity {
+        return FavouriteCitiesEntity(
+            cityId=id,
+            cityName =name,
             country=country,
             countryNameAr = countryNameAr,
             cityNameAr = cityNameAr,

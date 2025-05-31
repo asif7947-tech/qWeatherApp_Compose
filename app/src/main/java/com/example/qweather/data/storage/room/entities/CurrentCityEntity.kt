@@ -2,7 +2,7 @@ package com.example.qweather.data.storage.room.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.qweather.domain.dto.cities.CityDataModel
+import com.example.qweather.domain.dto.cities.CityDataDto
 import com.example.qweather.utils.Constants.SELECTED_CITY
 
 
@@ -18,8 +18,8 @@ data class CurrentCityEntity(
     val latitude: Double,
     val longitude: Double,
 ) {
-    fun toCityDataModel(): CityDataModel {
-        return CityDataModel(
+    fun toCityDataModel(): CityDataDto {
+        return CityDataDto(
             id = id,
             country = country,
             countryName = countryName,

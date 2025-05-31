@@ -1,14 +1,11 @@
 package com.example.qweather.data.response.forecast
 
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 import androidx.annotation.Keep
 import com.example.qweather.domain.dto.forecast.DayDetailDto
 import com.squareup.moshi.Json
 
 @Keep
-@Serializable
 data class DayDetail(
      @Json(name = "humidity")
     val humidity: Int,
@@ -41,7 +38,7 @@ data class DayDetail(
      @Json(name = "warning_text_ar")
     val warningTextAr: String,
      @Json(name = "weather_icon")
-    val weatherIcon: String,
+    val weatherIcon: String?,
      @Json(name = "weather_type")
     val weatherType: String,
      @Json(name = "weather_type_ar")
@@ -72,7 +69,6 @@ data class DayDetail(
             visibilityUnit = visibilityUnit,
             warningText = warningText,
             warningTextAr = warningTextAr,
-            weatherIcon = weatherIcon,
             weatherType = weatherType,
             weatherTypeAr = weatherTypeAr,
             windDirection = windDirection,

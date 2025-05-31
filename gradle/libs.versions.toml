@@ -30,9 +30,10 @@ googleGson = "2.11.0"
 retrofit = "2.9.0"
 okhttp = "4.10.0"
 moshi = "1.15.0"
-
 #Room
-room = "2.6.1"
+room = "2.7.1"
+#Location
+location = "21.3.0"
 
 
 [libraries]
@@ -85,6 +86,8 @@ moshi-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", v
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+#Location
+google-play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "location" }
 
 [bundles]
 compose = ["androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling", "androidx-ui-tooling-preview"]

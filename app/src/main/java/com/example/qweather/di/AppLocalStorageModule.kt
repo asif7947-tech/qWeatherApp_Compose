@@ -30,7 +30,7 @@ object AppLocalStorageModule {
             AppDatabase::class.java,
             "qWeather_app_database"
         )
-            .fallbackToDestructiveMigration().build()
+            .fallbackToDestructiveMigration(false).build()
     }
 
     @Provides

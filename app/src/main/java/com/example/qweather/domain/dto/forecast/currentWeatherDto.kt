@@ -16,7 +16,7 @@ data class CurrentWeatherDto(
     val temperatureMax: Double,
     val temperatureMin: Double,
     val temperatureUnit: String,
-    val time: Int,
+    val time: Long,
     val uvIndex: String,
     val visibility: Int,
     val visibilityUnit: String,

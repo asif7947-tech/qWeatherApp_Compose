@@ -9,13 +9,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.example.qweather.ui.theme.MyAppTheme
 
 
 @Composable
@@ -41,13 +41,13 @@ fun DrawerItem(
         Text(
             text = title,
             modifier = Modifier.weight(1f),
-            style = MaterialTheme.typography.bodyLarge
+            style = MyAppTheme.typography.bodyLarge
         )
 
         Icon(
             imageVector = Icons.Default.KeyboardArrowRight,
             contentDescription = "Navigate",
-            tint = MaterialTheme.colorScheme.onSurfaceVariant
+            tint = MyAppTheme.colorScheme.onSurfaceVariant
         )
     }
 }
